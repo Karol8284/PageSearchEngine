@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/build/" />
+  <Folder Name="/doc/" />
+  <Folder Name="/samples/" />
+  <Folder Name="/src/">
+    <Project Path="PageSearchEngine.Api/PageSearchEngine.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="PageSearchEngine.Test/PageSearchEngine.Test.csproj" Id="c47d40ae-2ad6-4858-8eab-459c5789e6a1" />
+  </Folder>
+</Solution>
