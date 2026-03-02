@@ -1,7 +1,9 @@
-﻿namespace PageSearchEngine.Api.Logic.Interface
+﻿using PageSearchEngine.Api.DTO.Data.Object;
+
+namespace PageSearchEngine.Api.Logic.Interface
 {
     public interface IPageSearchService
     {
-        Task<IEnumerable<PageSearchSuggestion>> SearchAsync(PageSearchRequest request, PageSearchResponse response, CancellationToken ct = default);
+        Task<PageSearchResponse> SearchAsync(PageSearchRequest request, CancellationToken ct = default);
     }
 }

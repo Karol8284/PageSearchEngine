@@ -1,12 +1,15 @@
+using PageSearchEngine.Api.Logic;
+using PageSearchEngine.Api.Logic.Interface;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddScoped<IPageSearchService, IPageSearchService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
-builder.Services.AddScoped<IPagesService, PagesService>();
 
 var app = builder.Build();
 

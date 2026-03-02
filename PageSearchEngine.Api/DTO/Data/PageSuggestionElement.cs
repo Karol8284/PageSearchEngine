@@ -1,4 +1,4 @@
-﻿namespace PageSearchEngine.Api.Logic.Data
+﻿namespace PageSearchEngine.Api.DTO.Data
 {
     public class PageSuggestionElement
     {

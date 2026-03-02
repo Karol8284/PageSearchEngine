@@ -1,27 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PageSearchEngine.Api.Logic;
+using PageSearchEngine.Api.DTO.Data.Object;
 using PageSearchEngine.Api.Logic.Interface;
 
-namespace PageSearchEngine.Api.Controllers
+[ApiController]
+[Route("api/pages")]
+public class PageSearchEngineController : ControllerBase
 {
-    [ApiController]
-    [Route("api/pages")]
-    public class PageSearchEngineController : ControllerBase
+    private readonly IPageSearchService _search;
+    private readonly ILogger<PageSearchEngineController> _logger;
+
+    public PageSearchEngineController(IPageSearchService search, ILogger<PageSearchEngineController> logger)
     {
-        private readonly IPageSearchService _search;
-        public PageSearchEngineController(IPageSearchService search) => _search = search;
-        public PageSearchEngine.Api.Logic.PageSearchEngine pageSearchEngine = new();
+        _search = search;
+        _logger = logger;
+    }
 
-
-        [HttpGet("search")]
-        //public async Task<IActionResult> Search([FromQuery] PageSearchRequest req, CancellationToken ct)
-        public async Task<PageSearchResponse> Search([FromQuery] PageSearchRequest req, CancellationToken ct)
+    [HttpGet("search")]
+    [ProducesResponseType(typeof(PageSearchResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<PageSearchResponse>> Search([FromQuery] PageSearchRequest req, CancellationToken ct)
+    {
+        if (req == null) return BadRequest();
+        try
         {
-            var res = await pageSearchEngine.Search(req);
-            //var res = await _search.SearchAsync(req, ct);
-            
+            var res = await _search.SearchAsync(req, ct);
             return Ok(res);
         }
-
+        catch (OperationCanceledException)
+        {
+            _logger.LogInformation("Search cancelled by client.");
+            return StatusCode(StatusCodes.Status499ClientClosedRequest);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Search failed.");
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿using PageSearchEngine.Api.Logic.Data;
+﻿using PageSearchEngine.Api.DTO.Data;
 
-namespace PageSearchEngine.Api.Logic
+namespace PageSearchEngine.Api.DTO.Data.Object
 {
     public class PageSearchResponse
     {

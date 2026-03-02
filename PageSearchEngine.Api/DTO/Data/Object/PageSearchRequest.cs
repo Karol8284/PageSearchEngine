@@ -1,4 +1,4 @@
-﻿namespace PageSearchEngine.Api.Logic
+﻿namespace PageSearchEngine.Api.DTO.Data.Object
 {
     public class PageSearchRequest
     {
